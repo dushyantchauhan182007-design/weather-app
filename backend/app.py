@@ -13,12 +13,10 @@ app = Flask(__name__, template_folder="../frontend/templates", static_folder="..
 API_KEY = os.getenv("API_KEY")
 
 
-
 @app.route("/")
 def home():
     """Render the main page."""
     return render_template("index.html")
-
 
 
 @app.route("/weather", methods=["GET"])
@@ -48,5 +46,5 @@ def get_weather():
 
 # ---------- RUN SERVER ----------
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
-
+    port = int(os.environ.get("PORT", 5000))  # Render assigns a dynamic port
+    app.run(host="0.0.0.0", port=port, debug=True)
